@@ -19,6 +19,6 @@ cd ./03_vmware_cc_only/
 echo "###### Done #####"
 cd ../
 
-find . -type d -name ".terraform" -exec rm -rf {} \;
-find . -type f -name ".terraform.*" -exec rm -f {} \;
+#find . -type d -name ".terraform" -exec rm -rf {} \;
+#find . -type f -name ".terraform.*" -exec rm -f {} \;
 find . -type f -name "terraform.tfstate*" -exec rm -f {} \;
