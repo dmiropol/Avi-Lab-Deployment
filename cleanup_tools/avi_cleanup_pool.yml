@@ -1,0 +1,40 @@
+---
+- name: Avi Cleanup Tasks
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    avi_credentials:
+      controller: "192.168.110.91"
+      username: "admin"
+      password: "VMware1!"
+      api_version: "22.1.5"
+      
+    tenant: "admin"
+    cloud_name: "NSXT"
+    ansible_become: yes
+    ansible_become_password: "{{ avi_credentials.password }}"
+
+  tasks:
+    - name: Get Avi Pools information
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: get
+        path: pool
+        tenant: "*"
+        params:
+          fields: "name,enabled,uuid,tenant_ref"
+      register: pool_results
+
+    - name: Display all Pools
+      ansible.builtin.debug:
+        var: pool_results.obj.results
+
+    - name: Delete all Pools 
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: delete
+        path: "pool/{{ item.uuid }}"
+        tenant: "*"
+      loop: "{{ pool_results.obj.results }}"

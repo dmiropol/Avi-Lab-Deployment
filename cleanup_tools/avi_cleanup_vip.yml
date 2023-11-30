@@ -1,0 +1,40 @@
+---
+- name: Avi Cleanup Tasks
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    avi_credentials:
+      controller: "192.168.110.91"
+      username: "admin"
+      password: "VMware1!"
+      api_version: "22.1.5"
+      
+    tenant: "admin"
+    cloud_name: "NSXT"
+    ansible_become: yes
+    ansible_become_password: "{{ avi_credentials.password }}"
+
+  tasks:
+    - name: Get Avi VSVIP information
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: get
+        path: vsvip
+        tenant: "*"
+        params:
+          fields: "name,enabled,uuid,tenant_ref"
+      register: vsvip_results
+
+    - name: Display all VSVIPs
+      ansible.builtin.debug:
+        var: vsvip_results.obj.results
+
+    - name: Delete all VSVIPs 
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: delete
+        path: "vsvip/{{ item.uuid }}"
+        tenant: "*"
+      loop: "{{ vsvip_results.obj.results }}"

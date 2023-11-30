@@ -1,0 +1,41 @@
+# Copyright 2022 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+---
+- name: Avi Cleanup Tasks
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    avi_credentials:
+      controller: "192.168.110.91"
+      username: "admin"
+      password: "VMware1!"
+      api_version: "22.1.5"
+      
+    tenant: "admin"
+    cloud_name: "NSXT"
+    ansible_become: yes
+    ansible_become_password: "{{ avi_credentials.password }}"
+    
+  tasks:
+    - name: Get Service Engine Information
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: get
+        path: serviceengine
+        tenant: "*"
+        params:
+          fields: "name,enable_state,uuid,se_connected,tenant_ref"
+      register: se_results
+
+    - name: Display all Service Engines
+      ansible.builtin.debug:
+        var: se_results.obj.results
+
+    - name: Delete all Service Engines
+      avi_api_session:
+        avi_credentials: "{{ avi_credentials }}"
+        http_method: delete
+        path: "serviceengine/{{ item.uuid }}"
+      loop: "{{ se_results.obj.results }}"
