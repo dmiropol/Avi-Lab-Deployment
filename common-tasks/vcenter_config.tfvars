@@ -1,0 +1,10 @@
+
+vcenter_username = "administrator@vsphere.local"
+vcenter_password = "VMware1!"
+vcenter_server = "192.168.1.10"
+vsphere_host = "192.168.1.20"
+vcenter_dc = ""
+vcenter_cluster = ""
+vcenter_datastore = ""
+vcenter_network = ""
+vcenter_folder = "Avi"
