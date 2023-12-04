@@ -23,7 +23,7 @@ variable "avi_controller_config" {
     network_mask       = "255.255.255.0"
     gateway4           = "192.168.110.1"
     controller_name    = "Avi-ctrl"
-    avi_dns_server_ips = "192.168.110.108.8.8.8"
+    avi_dns_server_ips = "192.168.110.1,8.8.8.8"
     avi_ntp_server_ips = "192.168.110.1"
   }
 }
