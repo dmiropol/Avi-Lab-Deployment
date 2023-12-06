@@ -33,7 +33,7 @@ variable "avi_cloud" {
   default = {
     cloud_type = "CLOUD_NSXT"
     obj_name_prefix = "nsxt-a"
-    nsxt_url        = "nsxapp-01a.corp.local"
+    nsxt_url        = "192.168.110.201"
     nsxt_user = "admin"
     nsxt_password = "VMware1!VMware1!"
   }

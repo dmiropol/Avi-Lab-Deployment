@@ -20,7 +20,7 @@ variable "avi_systemconfig" {
   type = map(string)
   default = {
     avi_dns_server_ips = "192.168.110.10"
-    search_domain = "corp.local"
+    search_domain = "vsphere.local, corp.local"
     avi_ntp_server_ips = "192.168.110.1"
   }
 }
