@@ -15,6 +15,7 @@ resource "avi_serviceenginegroup" "avi_se_group" {
   max_vs_per_se                = var.avi_segroup.max_vs_per_se # default 20
   se_dp_max_hb_version         = 1
   memory_per_se                = var.avi_segroup.mem_per_se #default 2048
+  mem_reserve                  = false
   min_scaleout_per_vs          = 1
   realtime_se_metrics {
     duration = 0
