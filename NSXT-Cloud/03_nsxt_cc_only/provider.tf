@@ -3,10 +3,6 @@ terraform {
     avi = {
       source  = "vmware/avi"
     }
-    nsxt = {
-      source = "vmware/nsxt"
-#      version = "~>3.2.1"
-    }
   }
 }
 

@@ -46,8 +46,6 @@ variable "vrf_context_config" {
   }
 }
 
-
-
 variable "avi_segroup" {
   type = map
   default = {

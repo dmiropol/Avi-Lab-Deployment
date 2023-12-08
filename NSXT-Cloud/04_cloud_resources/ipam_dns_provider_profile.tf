@@ -4,7 +4,7 @@ resource "avi_ipamdnsproviderprofile" "avi_ipam" {
   tenant_ref = var.avi_tenant
   internal_profile {
     usable_networks {
-      nw_ref = "https://${var.avi_controller_ip}/api/network/${data.vsphere_network.network.id}-${data.avi_cloud.avi_cloud.uuid}"
+      nw_ref = data.avi_network.data_network.id
     }
   }
 }

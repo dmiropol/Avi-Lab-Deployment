@@ -17,9 +17,9 @@ data "vsphere_datastore" "datastore" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
-data "vsphere_network" "network" {
+data "avi_network" "data_network" {
   name = var.data_network_config.network_name
-  datacenter_id = data.vsphere_datacenter.dc.id
+  cloud_ref = var.avi_cloud_name
 }
 
 data "avi_vrfcontext" "avi_data" {
